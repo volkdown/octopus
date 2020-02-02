@@ -1,0 +1,9 @@
+apply plugin: 'com.android.library'
+apply from: "$rootDir/dependencies.gradle"
+apply from: "$rootDir/config.gradle"
+
+dependencies{
+    implementation project(':coreoctopus')
+
+    deps.groups.rxCommon dependencies
+}

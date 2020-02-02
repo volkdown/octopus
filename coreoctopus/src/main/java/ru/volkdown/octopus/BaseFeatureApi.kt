@@ -151,7 +151,10 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
         var innerFeatureSubscriber = entry?.value
         if(innerFeatureSubscriber == null) {
             //Inner feature always has id as owner id
-           innerFeatureSubscriber = InnerFeatureSubscriber(ownerId)
+           innerFeatureSubscriber = object: InnerFeatureSubscriber{
+               override val featureId: String = ownerId
+               override fun handleEvent(event: BaseFeatureEvent) {}
+           }
         }
         return innerFeatureSubscriber
     }
@@ -167,7 +170,10 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
     }
 
     private fun getFeatureSubscriberByFeatureId(featureId: String): FeatureSubscriber {
-        return FeatureSubscriber(featureId)
+        return object: FeatureSubscriber{
+            override val featureId: String = featureId
+            override fun handleEvent(event: BaseFeatureEvent) {}
+        }
     }
 
     private class FeatureSubscriberIdentifier(val featureId: String, val ownerId: String?)

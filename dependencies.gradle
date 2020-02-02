@@ -228,6 +228,13 @@ ext.deps.groups = [
             implementation deps.rx.rxRelay
         },
 
+        'rxCommon'                    : { dependencyHandler ->
+            delegate = dependencyHandler
+            implementation deps.rx.rxjava2
+            implementation deps.rx.rxkotlin
+            implementation deps.rx.rxandroid
+        },
+
         'architectureComponents': { dependencyHandler ->
             delegate = dependencyHandler
             implementation deps.architectureComponents.lifecycle
