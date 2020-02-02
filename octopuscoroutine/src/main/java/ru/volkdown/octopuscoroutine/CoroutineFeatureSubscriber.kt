@@ -1,0 +1,23 @@
+package ru.volkdown.octopuscoroutine
+
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.sendBlocking
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import ru.volkdown.octopus.BaseFeatureEvent
+import ru.volkdown.octopus.FeatureSubscriber
+
+
+class CoroutineFeatureSubscriber internal constructor(private val featureSubscriber: FeatureSubscriber) : FeatureSubscriber by featureSubscriber,
+    CoroutineSubscriber {
+
+    private val eventsBroadcastChannel = BroadcastChannel<BaseFeatureEvent>(1)
+
+    override fun handleEvent(event: BaseFeatureEvent) {
+        eventsBroadcastChannel.sendBlocking(event)
+    }
+
+    override suspend fun getEvents(): Flow<BaseFeatureEvent> {
+        return eventsBroadcastChannel.asFlow()
+    }
+}
