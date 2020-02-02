@@ -1,2 +1,6 @@
-include ':sample', ':coreoctopus', ':octopusrx', ':octopuscicerone', ':octopuscoroutine'
+include ':sample',
+        ':coreoctopus',
+        ':octopusrx',
+        ':octopuscicerone',
+        ':octopuscoroutine'
 rootProject.name='Octopus'

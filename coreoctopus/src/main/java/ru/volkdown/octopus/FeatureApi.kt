@@ -23,7 +23,7 @@ interface FeatureApi {
     fun unregisterSubscriber(subscriber: FeatureSubscriber)
 
     @MainThread
-    fun newSubscriber(): FeatureSubscriber
+    fun newSubscriber(featureId: String): FeatureSubscriber
 
     @MainThread
     fun newSubscriber(featureOwner: FeatureOwner): FeatureSubscriber

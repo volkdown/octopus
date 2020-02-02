@@ -16,11 +16,13 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
     /**
      * Подписчики, использующие внешнее апи
      */
-    private val featureSubscribers: HashMap<FeatureSubscriberIdentifier, FeatureSubscriber> = HashMap()
+    private val featureSubscribers: HashMap<FeatureSubscriberIdentifier, FeatureSubscriber> =
+        HashMap()
     /**
      * Подписчики, использующие внутреннее апи
      */
-    private val featureInnerSubscribers: HashMap<FeatureSubscriberIdentifier, InnerFeatureSubscriber> = HashMap()
+    private val featureInnerSubscribers: HashMap<FeatureSubscriberIdentifier, InnerFeatureSubscriber> =
+        HashMap()
     /**
      * Добавляются события в очередь, в случае не зарегистрированного подписчика на внутреннее feature api. Все события события группируются по ключу - feature id. В случае если подписчик внутреннего апи зарегистрирован, то события направляются напрямую к нему [FeatureSubscriber.handleEvent]. Также события будут направлены подписчику внутреннего апи как только он будет зарегистрирован.
      */
@@ -30,8 +32,8 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
 
     override fun unregisterOwner(owner: FeatureOwner) {
         checkThreadIsMain()
-        val ownerId = owner.getId()
-        if(featureKeysByOwnerId.containsKey(ownerId)){
+        val ownerId = owner.id
+        if (featureKeysByOwnerId.containsKey(ownerId)) {
             return
         }
         featureKeysByOwnerId.remove(ownerId)
@@ -39,8 +41,8 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
 
     override fun registerOwner(owner: FeatureOwner) {
         checkThreadIsMain()
-        val ownerId = owner.getId()
-        if(featureKeysByOwnerId.containsKey(ownerId)){
+        val ownerId = owner.id
+        if (featureKeysByOwnerId.containsKey(ownerId)) {
             return
         }
         featureKeysByOwnerId[ownerId] = generateFeatureId()
@@ -51,8 +53,8 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
     @MainThread
     override fun registerSubscriber(featureOwner: FeatureOwner, subscriber: FeatureSubscriber) {
         checkThreadIsMain()
-        val ownerId = featureOwner.getId()
-        if(!featureKeysByOwnerId.containsKey(ownerId)){
+        val ownerId = featureOwner.id
+        if (!featureKeysByOwnerId.containsKey(ownerId)) {
             throw IllegalArgumentException("Owner must be registered")
         }
         val featureSubscriberIdentifier = FeatureSubscriberIdentifier(subscriber.featureId, ownerId)
@@ -85,10 +87,14 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
     }
 
     @MainThread
-    override fun registerSubscriber(featureOwner: FeatureOwner, subscriber: InnerFeatureSubscriber) {
+    override fun registerSubscriber(
+        featureOwner: FeatureOwner,
+        subscriber: InnerFeatureSubscriber
+    ) {
         checkThreadIsMain()
         val featureId = subscriber.featureId
-        featureInnerSubscribers[FeatureSubscriberIdentifier(featureId, featureOwner.getId())] = subscriber
+        featureInnerSubscribers[FeatureSubscriberIdentifier(featureId, featureOwner.id)] =
+            subscriber
         pendingEvents[featureId]?.forEach {
             subscriber.handleEvent(it)
         }
@@ -111,19 +117,22 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
 
     override fun sendEvents(featureOwner: FeatureOwner, vararg events: BaseFeatureEvent) {
         checkThreadIsMain()
-        val featureId = featureKeysByOwnerId[featureOwner.getId()] ?: throw IllegalArgumentException("Owner must be registered or need send event by feature id")
+        val featureId = featureKeysByOwnerId[featureOwner.id]
+            ?: throw IllegalArgumentException("Owner must be registered or need send event by feature id")
         sendEvents(featureId)
     }
 
     override fun newSubscriber(featureOwner: FeatureOwner): FeatureSubscriber {
         checkThreadIsMain()
         val entry = featureSubscribers.entries.find {
-            it.key.ownerId == featureOwner.getId()
+            it.key.ownerId == featureOwner.id
         }
         var featureSubscriber = entry?.value
-        if(featureSubscriber == null) {
-            val featureId = featureKeysByOwnerId[featureOwner.getId()] ?: throw IllegalArgumentException("Owner must be registered")
-            featureSubscriber = getFeatureSubscriberByFeatureId(featureId)
+        if (featureSubscriber == null) {
+            val featureId = featureKeysByOwnerId[featureOwner.id] ?: throw IllegalArgumentException(
+                "Owner must be registered"
+            )
+            featureSubscriber = newSubscriber(featureId)
         }
         return featureSubscriber
     }
@@ -131,7 +140,7 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
     @MainThread
     override fun sendInnerEvents(featureOwner: FeatureOwner, vararg events: BaseFeatureEvent) {
         checkThreadIsMain()
-        val featureId = featureOwner.getId()
+        val featureId = featureOwner.id
 
         val featureSubscriberIdentifier = featureSubscribers.entries.find {
             it.key.featureId == featureId
@@ -144,36 +153,33 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
     @MainThread
     override fun newInnerSubscriber(featureOwner: FeatureOwner): InnerFeatureSubscriber {
         checkThreadIsMain()
-        val ownerId = featureOwner.getId()
+        val ownerId = featureOwner.id
         val entry = featureInnerSubscribers.entries.find {
             it.key.ownerId == ownerId
         }
         var innerFeatureSubscriber = entry?.value
-        if(innerFeatureSubscriber == null) {
+        if (innerFeatureSubscriber == null) {
             //Inner feature always has id as owner id
-           innerFeatureSubscriber = object: InnerFeatureSubscriber{
-               override val featureId: String = ownerId
-               override fun handleEvent(event: BaseFeatureEvent) {}
-           }
+            innerFeatureSubscriber = object : InnerFeatureSubscriber {
+                override val featureId: String = ownerId
+                override fun handleEvent(event: BaseFeatureEvent) {}
+            }
         }
         return innerFeatureSubscriber
     }
 
     @MainThread
-    override fun newSubscriber(): FeatureSubscriber {
+    override fun newSubscriber(featureId: String): FeatureSubscriber {
         checkThreadIsMain()
-        return getFeatureSubscriberByFeatureId(generateFeatureId())
-    }
-
-    protected fun getFeatureIdByOwner(featureOwner: FeatureOwner): String{
-        return featureKeysByOwnerId[featureOwner.getId()] ?: throw IllegalArgumentException("Owner must be registered")
-    }
-
-    private fun getFeatureSubscriberByFeatureId(featureId: String): FeatureSubscriber {
-        return object: FeatureSubscriber{
+        return object : FeatureSubscriber {
             override val featureId: String = featureId
             override fun handleEvent(event: BaseFeatureEvent) {}
         }
+    }
+
+    protected fun getFeatureIdByOwner(featureOwner: FeatureOwner): String {
+        return featureKeysByOwnerId[featureOwner.id]
+            ?: throw IllegalArgumentException("Owner must be registered")
     }
 
     private class FeatureSubscriberIdentifier(val featureId: String, val ownerId: String?)

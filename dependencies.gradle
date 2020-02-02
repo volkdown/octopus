@@ -225,9 +225,6 @@ ext.deps.groups = [
             implementation deps.rx.rxlifecycleAndroid
             implementation deps.rx.rxlifecyclekotlin
             implementation deps.rx.rxlifecyclekotlinAndroid
-            implementation deps.rx.rxPreferences
-            implementation deps.rx.rxPermissions
-            implementation deps.rx.rxPaparazzo
             implementation deps.rx.rxRelay
         },
 
