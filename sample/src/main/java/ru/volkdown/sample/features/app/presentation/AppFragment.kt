@@ -10,6 +10,7 @@ import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import ru.volkdown.octopus.R
+import ru.volkdown.octopus.utils.getFeatureIdentifier
 import ru.volkdown.sample.App
 import ru.volkdown.sample.base.BaseFragment
 import ru.volkdown.sample.base.BaseView
@@ -33,7 +34,8 @@ class AppFragment : BaseFragment<AppPresenter>(), BaseView{
     lateinit var navigationContainer: NavigationContainer
 
     private val navigatorHolder: NavigatorHolder by lazy {
-        navigationContainer.getNavigatorHolder("app")
+        val featureId = getFeatureIdentifier().featureId
+        navigationContainer.getNavigatorHolder(featureId)
     }
 
     @InjectPresenter
@@ -47,7 +49,7 @@ class AppFragment : BaseFragment<AppPresenter>(), BaseView{
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val applicationProvider = (requireActivity().application as App).getApplicationProvider()
-        component = AppComponent.build(applicationProvider)
+        component = AppComponent.build(applicationProvider, getFeatureIdentifier())
         component.inject(this)
     }
 

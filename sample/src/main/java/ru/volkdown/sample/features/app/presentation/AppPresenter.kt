@@ -1,16 +1,23 @@
 package ru.volkdown.sample.features.app.presentation
 
+import ru.volkdown.octopus.FeatureIdentifier
 import ru.volkdown.sample.base.BasePresenter
 import ru.volkdown.sample.base.BaseView
+import ru.volkdown.sample.features.main.api.MainFeatureApi
 import ru.volkdown.sample.navigation.NavigationContainer
 import javax.inject.Inject
 
-class AppPresenter @Inject constructor(private val navigationContainer: NavigationContainer): BasePresenter<BaseView>(null){
+class AppPresenter @Inject constructor(
+    navigationContainer: NavigationContainer,
+    featureIdentifier: FeatureIdentifier,
+    private val mainFeatureApi: MainFeatureApi
+) : BasePresenter<BaseView>(featureIdentifier) {
 
-    val router = navigationContainer.getRouter("app")
+    private val router = navigationContainer.getRouter(featureIdentifier.featureId)
 
-    override fun onDestroy() {
-        navigationContainer.removeCicerone("app")
-        super.onDestroy()
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        registerFeatures(mainFeatureApi)
+        router.newRootScreen(mainFeatureApi.getScreen(this))
     }
 }

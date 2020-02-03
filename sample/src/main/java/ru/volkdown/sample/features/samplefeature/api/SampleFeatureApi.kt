@@ -1,10 +1,6 @@
 package ru.volkdown.sample.features.samplefeature.api
 
-import ru.terrakok.cicerone.Screen
 import ru.volkdown.octopus.FeatureApi
-import ru.volkdown.octopus.FeatureOwner
+import ru.volkdown.sample.base.ScreenFeatureApi
 
-interface SampleFeatureApi : FeatureApi{
-
-    fun getScreen(owner: FeatureOwner): Screen
-}
+interface SampleFeatureApi : FeatureApi, ScreenFeatureApi

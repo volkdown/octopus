@@ -1,23 +1,25 @@
-package ru.volkdown.sample.features.app.di
+package ru.volkdown.sample.features.main.di
 
 import dagger.Component
 import ru.volkdown.octopus.FeatureIdentifier
 import ru.volkdown.sample.di.ApplicationProvider
 import ru.volkdown.sample.features.app.presentation.AppFragment
 import ru.volkdown.sample.features.app.presentation.AppPresenter
+import ru.volkdown.sample.features.main.presentation.MainFragment
+import ru.volkdown.sample.features.main.presentation.MainPresenter
 
 @Component(
     dependencies = [ApplicationProvider::class, FeatureIdentifier::class]
 )
-interface AppComponent {
+interface MainComponent {
 
-    fun getPresenter(): AppPresenter
+    fun getPresenter(): MainPresenter
 
-    fun inject(d: AppFragment)
+    fun inject(d: MainFragment)
 
     companion object {
-        fun build(applicationProvider: ApplicationProvider, featureIdentifier: FeatureIdentifier): AppComponent {
-            return DaggerAppComponent.builder()
+        fun build(applicationProvider: ApplicationProvider, featureIdentifier: FeatureIdentifier): MainComponent {
+            return DaggerMainComponent.builder()
                 .applicationProvider(applicationProvider)
                 .featureIdentifier(featureIdentifier)
                 .build()
