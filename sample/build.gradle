@@ -22,7 +22,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':coreoctopus')
+    implementation project(':octopusrx')
+    implementation project(':octopuscicerone')
+
     implementation deps.android.appcompat
+    implementation deps.utils.timber
+    deps.groups.injection dependencies
+    deps.groups.moxy dependencies
+    deps.groups.rx dependencies
+    deps.groups.navigation dependencies
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'

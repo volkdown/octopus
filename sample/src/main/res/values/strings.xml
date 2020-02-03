@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Octopus</string>
+    <string name="single_feature">Single feature</string>
+    <string name="multi_feature">Multi feature</string>
+    <string name="i_am_feature">I am feature</string>
 </resources>
