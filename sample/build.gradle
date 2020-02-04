@@ -5,7 +5,7 @@ apply from: "$rootDir/config.gradle"
 android {
 
     defaultConfig {
-        applicationId "ru.volkdown.octopus"
+        applicationId "ru.volkdown.sample"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1

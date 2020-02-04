@@ -1,6 +1,6 @@
 package ru.volkdown.sample.features.samplefeature.presentation
 
-import ru.volkdown.octopus.FeatureIdentifier
+import ru.volkdown.coreoctopus.FeatureIdentifier
 import ru.volkdown.sample.base.BasePresenter
 import ru.volkdown.sample.base.BaseView
 import javax.inject.Inject

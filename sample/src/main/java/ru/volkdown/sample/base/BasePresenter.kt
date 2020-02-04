@@ -9,7 +9,7 @@ import com.trello.rxlifecycle3.kotlin.bindUntilEvent
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
-import ru.volkdown.octopus.*
+import ru.volkdown.coreoctopus.*
 import ru.volkdown.octopusrx.utils.asRxSubscriber
 import ru.volkdown.sample.base.PresenterEvent.DESTROY
 import timber.log.Timber

@@ -1,7 +1,7 @@
-package ru.volkdown.octopus.utils
+package ru.volkdown.coreoctopus.utils
 
 import androidx.fragment.app.Fragment
-import ru.volkdown.octopus.FeatureIdentifier
+import ru.volkdown.coreoctopus.FeatureIdentifier
 
 
 /**

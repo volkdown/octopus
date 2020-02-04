@@ -1,6 +1,6 @@
 package ru.volkdown.sample.features.app.presentation
 
-import ru.volkdown.octopus.FeatureIdentifier
+import ru.volkdown.coreoctopus.FeatureIdentifier
 import ru.volkdown.sample.base.BasePresenter
 import ru.volkdown.sample.base.BaseView
 import ru.volkdown.sample.features.main.api.MainFeatureApi

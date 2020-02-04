@@ -1,7 +1,7 @@
 package ru.volkdown.octopuscoroutine.utils
 
-import ru.volkdown.octopus.FeatureSubscriber
-import ru.volkdown.octopus.InnerFeatureSubscriber
+import ru.volkdown.coreoctopus.FeatureSubscriber
+import ru.volkdown.coreoctopus.InnerFeatureSubscriber
 import ru.volkdown.octopuscoroutine.CoroutineFeatureSubscriber
 import ru.volkdown.octopuscoroutine.CoroutineInnerFeatureSubscriber
 

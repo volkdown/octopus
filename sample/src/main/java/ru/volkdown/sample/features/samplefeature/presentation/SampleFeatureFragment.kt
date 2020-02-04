@@ -1,6 +1,6 @@
 package ru.volkdown.sample.features.samplefeature.presentation
 
-import ru.volkdown.octopus.R
+import ru.volkdown.sample.R
 import ru.volkdown.sample.base.BaseFragment
 
 class SampleFeatureFragment : BaseFragment<SampleFeaturePresenter>(){

@@ -1,8 +1,8 @@
-package ru.volkdown.octopus
+package ru.volkdown.coreoctopus
 
 import androidx.annotation.MainThread
-import ru.volkdown.octopus.utils.Threads.Companion.checkThreadIsMain
-import ru.volkdown.octopus.utils.generateFeatureId
+import ru.volkdown.coreoctopus.utils.Threads.Companion.checkThreadIsMain
+import ru.volkdown.coreoctopus.utils.generateFeatureId
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.set
@@ -11,7 +11,8 @@ import kotlin.collections.set
  * Описывает связь между внутренним и внешним feature api
  *
  */
-open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
+open class BaseFeatureApi : FeatureApi,
+    InnerFeatureApi {
 
     /**
      * Подписчики, использующие внешнее апи
@@ -57,7 +58,11 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
         if (!featureKeysByOwnerId.containsKey(ownerId)) {
             throw IllegalArgumentException("Owner must be registered")
         }
-        val featureSubscriberIdentifier = FeatureSubscriberIdentifier(subscriber.featureId, ownerId)
+        val featureSubscriberIdentifier =
+            FeatureSubscriberIdentifier(
+                subscriber.featureId,
+                ownerId
+            )
         featureSubscribers[featureSubscriberIdentifier] = subscriber
     }
 
@@ -93,7 +98,10 @@ open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
     ) {
         checkThreadIsMain()
         val featureId = subscriber.featureId
-        featureInnerSubscribers[FeatureSubscriberIdentifier(featureId, featureOwner.id)] =
+        featureInnerSubscribers[FeatureSubscriberIdentifier(
+            featureId,
+            featureOwner.id
+        )] =
             subscriber
         pendingEvents[featureId]?.forEach {
             subscriber.handleEvent(it)

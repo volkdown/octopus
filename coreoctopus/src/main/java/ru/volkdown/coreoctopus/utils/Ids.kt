@@ -1,6 +1,6 @@
-package ru.volkdown.octopus.utils
+package ru.volkdown.coreoctopus.utils
 
-import ru.volkdown.octopus.FeatureOwner
+import ru.volkdown.coreoctopus.FeatureOwner
 import java.util.*
 
 fun generateFeatureId(): String = UUID.randomUUID().toString()

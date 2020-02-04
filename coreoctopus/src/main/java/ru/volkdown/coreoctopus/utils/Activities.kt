@@ -1,7 +1,7 @@
-package ru.volkdown.octopus.utils
+package ru.volkdown.coreoctopus.utils
 
 import android.app.Activity
-import ru.volkdown.octopus.FeatureIdentifier
+import ru.volkdown.coreoctopus.FeatureIdentifier
 
 /**
  * Получение feature индефикатора для [Activity] из [Activity.getIntent]

@@ -1,4 +1,4 @@
-package ru.volkdown.octopus.exceptions
+package ru.volkdown.coreoctopus.exceptions
 
 /**
  * Describe [Exception] about action in not main thread

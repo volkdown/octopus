@@ -1,7 +1,7 @@
 package ru.volkdown.octopuscoroutine
 
 import kotlinx.coroutines.flow.Flow
-import ru.volkdown.octopus.BaseFeatureEvent
+import ru.volkdown.coreoctopus.BaseFeatureEvent
 
 interface CoroutineSubscriber{
 

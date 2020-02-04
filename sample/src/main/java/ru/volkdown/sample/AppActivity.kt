@@ -1,6 +1,5 @@
 package ru.volkdown.sample
 
-import ru.volkdown.octopus.R
 import ru.volkdown.sample.base.BaseActivity
 import ru.volkdown.sample.base.BasePresenter
 import ru.volkdown.sample.base.BaseView

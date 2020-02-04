@@ -4,8 +4,8 @@ import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
-import ru.volkdown.octopus.BaseFeatureEvent
-import ru.volkdown.octopus.FeatureSubscriber
+import ru.volkdown.coreoctopus.BaseFeatureEvent
+import ru.volkdown.coreoctopus.FeatureSubscriber
 
 
 class CoroutineFeatureSubscriber internal constructor(private val featureSubscriber: FeatureSubscriber) : FeatureSubscriber by featureSubscriber,

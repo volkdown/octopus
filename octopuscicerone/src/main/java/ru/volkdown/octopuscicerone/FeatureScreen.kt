@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
-import ru.volkdown.octopus.utils.FEATURE_ID_KEY
-import ru.volkdown.octopus.utils.FEATURE_SCREEN_PATH
+import ru.volkdown.coreoctopus.utils.FEATURE_ID_KEY
+import ru.volkdown.coreoctopus.utils.FEATURE_SCREEN_PATH
 
 abstract class FeatureScreen(private val featureId: String, private val screenPath: String? = null) : SupportAppScreen(){
 

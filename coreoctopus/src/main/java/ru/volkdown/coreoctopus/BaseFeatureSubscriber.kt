@@ -1,4 +1,4 @@
-package ru.volkdown.octopus
+package ru.volkdown.coreoctopus
 
 interface BaseFeatureSubscriber {
 

@@ -1,10 +1,8 @@
 package ru.volkdown.sample.features.main.di
 
 import dagger.Component
-import ru.volkdown.octopus.FeatureIdentifier
+import ru.volkdown.coreoctopus.FeatureIdentifier
 import ru.volkdown.sample.di.ApplicationProvider
-import ru.volkdown.sample.features.app.presentation.AppFragment
-import ru.volkdown.sample.features.app.presentation.AppPresenter
 import ru.volkdown.sample.features.main.presentation.MainFragment
 import ru.volkdown.sample.features.main.presentation.MainPresenter
 

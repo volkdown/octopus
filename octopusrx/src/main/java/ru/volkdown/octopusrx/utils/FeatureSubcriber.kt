@@ -1,7 +1,7 @@
 package ru.volkdown.octopusrx.utils
 
-import ru.volkdown.octopus.FeatureSubscriber
-import ru.volkdown.octopus.InnerFeatureSubscriber
+import ru.volkdown.coreoctopus.FeatureSubscriber
+import ru.volkdown.coreoctopus.InnerFeatureSubscriber
 import ru.volkdown.octopusrx.RxFeatureSubscriber
 import ru.volkdown.octopusrx.RxInnerFeatureSubscriber
 

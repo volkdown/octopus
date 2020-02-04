@@ -1,26 +1,21 @@
 package ru.volkdown.sample.features.app.presentation
 
 import android.content.Context
-import android.os.Bundle
-import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import kotlinx.android.synthetic.main.fragment_app.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
-import ru.volkdown.octopus.R
-import ru.volkdown.octopus.utils.getFeatureIdentifier
+import ru.volkdown.coreoctopus.utils.getFeatureIdentifier
 import ru.volkdown.sample.App
+import ru.volkdown.sample.R
 import ru.volkdown.sample.base.BaseFragment
 import ru.volkdown.sample.base.BaseView
 import ru.volkdown.sample.features.app.di.AppComponent
-import ru.volkdown.sample.features.single.di.SingleComponent
-import ru.volkdown.sample.features.single.presentation.SinglePresenter
 import ru.volkdown.sample.navigation.NavigationContainer
 import javax.inject.Inject
 
-class AppFragment : BaseFragment<AppPresenter>(), BaseView{
+class AppFragment : BaseFragment<AppPresenter>(), BaseView {
 
     private lateinit var component: AppComponent
 

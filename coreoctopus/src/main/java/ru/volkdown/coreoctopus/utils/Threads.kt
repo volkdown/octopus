@@ -1,6 +1,6 @@
-package ru.volkdown.octopus.utils
+package ru.volkdown.coreoctopus.utils
 
-import ru.volkdown.octopus.exceptions.MainThreadException
+import ru.volkdown.coreoctopus.exceptions.MainThreadException
 import java.util.*
 
 class Threads {
@@ -12,12 +12,19 @@ class Threads {
          */
         fun checkThreadIsMain() {
             if (Thread.currentThread().name != "main") {
-                throw sanitizeStackTrace(MainThreadException("The current method can only be called from the main thread."))
+                throw sanitizeStackTrace(
+                    MainThreadException(
+                        "The current method can only be called from the main thread."
+                    )
+                )
             }
         }
 
         private fun <T : Throwable> sanitizeStackTrace(throwable: T): T {
-            return sanitizeStackTrace(throwable, Companion::class.java.name)
+            return sanitizeStackTrace(
+                throwable,
+                Companion::class.java.name
+            )
         }
 
         /**

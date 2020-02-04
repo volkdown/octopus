@@ -2,8 +2,8 @@ package ru.volkdown.sample.features.samplefeature.api
 
 import androidx.fragment.app.Fragment
 import ru.terrakok.cicerone.Screen
-import ru.volkdown.octopus.BaseFeatureApi
-import ru.volkdown.octopus.FeatureOwner
+import ru.volkdown.coreoctopus.BaseFeatureApi
+import ru.volkdown.coreoctopus.FeatureOwner
 import ru.volkdown.octopuscicerone.FeatureScreen
 import ru.volkdown.sample.features.samplefeature.presentation.SampleFeatureFragment
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package ru.volkdown.octopus
+package ru.volkdown.coreoctopus
 
 import android.net.Uri
 

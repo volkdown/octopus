@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import ru.volkdown.octopus.R
-import ru.volkdown.octopus.utils.getFeatureIdentifier
+import ru.volkdown.coreoctopus.utils.getFeatureIdentifier
 import ru.volkdown.sample.App
+import ru.volkdown.sample.R
 import ru.volkdown.sample.base.BaseFragment
 import ru.volkdown.sample.base.BaseView
 import ru.volkdown.sample.features.main.di.MainComponent

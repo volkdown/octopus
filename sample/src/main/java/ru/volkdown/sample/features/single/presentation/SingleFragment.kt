@@ -3,8 +3,8 @@ package ru.volkdown.sample.features.single.presentation
 import android.content.Context
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import ru.volkdown.octopus.R
 import ru.volkdown.sample.App
+import ru.volkdown.sample.R
 import ru.volkdown.sample.base.BaseFragment
 import ru.volkdown.sample.base.BaseView
 import ru.volkdown.sample.features.single.di.SingleComponent
