@@ -51,6 +51,6 @@ class SinglePresenter @Inject constructor(private val featureIdentifier: Feature
 
     fun onSendEventToSampleFeatureClicked() {
         val event = ShowMessageFromSingleEvent(R.string.event_from_single_owner)
-        sampleFeatureApi.sendEvents(this, event, event)
+        sampleFeatureApi.sendEvents(this, event)
     }
 }
