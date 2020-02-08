@@ -1,14 +1,18 @@
 package ru.volkdown.coreoctopus
 
-class FeatureSubscriber(val featureId: String) : FeatureEventListener {
+data class FeatureSubscriber(val featureId: String) : FeatureEventListener {
 
     private var eventListener: FeatureEventListener? = null
 
-    override fun handleEvent(event: BaseFeatureEvent) {
+    override fun handleEvent(event: BaseFeatureEvent): FeatureEventListener {
         eventListener?.handleEvent(event)
+        return this
     }
 
-    fun setEventListener(eventListener: FeatureEventListener?) {
-        this.eventListener = eventListener
+    fun setEventListener(eventListener: FeatureEventListener?): FeatureEventListener {
+        if(this.eventListener == null){
+            this.eventListener = eventListener
+        }
+        return this.eventListener!!
     }
 }

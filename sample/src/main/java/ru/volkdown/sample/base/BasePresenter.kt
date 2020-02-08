@@ -82,7 +82,6 @@ abstract class BasePresenter<VIEW : BaseView> constructor(private val featureIde
     @SuppressLint("CheckResult")
     protected fun subscribeToFeatureEvents(featureApi: FeatureApi, onNewEvent: (BaseFeatureEvent) -> Unit) {
         val newSubscriber = featureApi.newSubscriber(this)
-        featureApi.registerSubscriber(this, newSubscriber)
         newSubscriber.asRxSubscriber().getEvents()
                 .bindUntilEvent(this, DESTROY)
                 .doOnTerminate { featureApi.unregisterSubscriber(newSubscriber) }
@@ -90,6 +89,20 @@ abstract class BasePresenter<VIEW : BaseView> constructor(private val featureIde
                         onNext = { onNewEvent.invoke(it) },
                         onError = { handleError(it) }
                 )
+        featureApi.registerSubscriber(this, newSubscriber)
+    }
+
+    @SuppressLint("CheckResult")
+    protected fun subscribeToFeatureEvents(featureApi: FeatureApi, featureId: String, onNewEvent: (BaseFeatureEvent) -> Unit) {
+        val newSubscriber = featureApi.newSubscriber(featureId)
+        newSubscriber.asRxSubscriber().getEvents()
+            .bindUntilEvent(this, DESTROY)
+            .doOnTerminate { featureApi.unregisterSubscriber(newSubscriber) }
+            .subscribeBy(
+                onNext = { onNewEvent.invoke(it) },
+                onError = { handleError(it) }
+            )
+        featureApi.registerSubscriber(this, newSubscriber)
     }
 
     protected fun registerFeatures(vararg featuresApi: FeatureApi){
@@ -107,15 +120,16 @@ abstract class BasePresenter<VIEW : BaseView> constructor(private val featureIde
     }
 
     @SuppressLint("CheckResult")
-    protected fun subscribeToFeatureEvents(featureApi: InnerFeatureApi, subscriber: InnerFeatureSubscriber, onNewEvent: (BaseFeatureEvent) -> Unit) {
-        featureApi.registerSubscriber(this, subscriber)
-        subscriber.asRxSubscriber().getEvents()
+    protected fun subscribeToFeatureEvents(featureApi: InnerFeatureApi, onNewEvent: (BaseFeatureEvent) -> Unit) {
+        val innerSubscriber = featureApi.newInnerSubscriber(this)
+        innerSubscriber.asRxSubscriber().getEvents()
                 .bindUntilEvent(this, DESTROY)
-                .doOnTerminate { featureApi.unregisterSubscriber(subscriber) }
+                .doOnTerminate { featureApi.unregisterSubscriber(innerSubscriber) }
                 .subscribeBy(
                         onNext = { onNewEvent.invoke(it) },
                         onError = { handleError(it) }
                 )
+        featureApi.registerSubscriber(this, innerSubscriber)
     }
 
     override val id: String = featureIdentifier?.featureId ?: UUID.randomUUID().toString()

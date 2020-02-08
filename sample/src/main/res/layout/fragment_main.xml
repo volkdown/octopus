@@ -7,11 +7,26 @@
         android:id="@+id/btnSingle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/single_feature"/>
+        android:text="@string/single_feature"
+        android:layout_marginTop="@dimen/window_margin"
+        android:layout_marginStart="@dimen/window_margin"
+        android:layout_marginEnd="@dimen/window_margin"/>
 
     <Button
         android:id="@+id/btnMulti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/multi_feature"/>
+        android:text="@string/multi_feature"
+        android:layout_marginTop="@dimen/window_margin"
+        android:layout_marginStart="@dimen/window_margin"
+        android:layout_marginEnd="@dimen/window_margin"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/swPendingEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/open_with_pending_event"
+        android:checked="false"
+        android:layout_marginStart="@dimen/window_margin"
+        android:layout_marginTop="@dimen/window_margin"/>
 </LinearLayout>

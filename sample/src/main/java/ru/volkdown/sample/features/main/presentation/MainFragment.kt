@@ -39,6 +39,7 @@ class MainFragment : BaseFragment<MainPresenter>(), BaseView{
         super.onViewCreated(view, savedInstanceState)
         btnSingle.setOnClickListener { presenter.onShowSingleFeatureClicked() }
         btnMulti.setOnClickListener { presenter.onShowMultiFeatureClicked() }
+        swPendingEvent.setOnCheckedChangeListener { _, isChecked -> presenter.onChangePendingEventStatus(isChecked) }
     }
 
     companion object{

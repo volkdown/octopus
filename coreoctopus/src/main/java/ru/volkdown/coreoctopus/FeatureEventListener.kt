@@ -2,5 +2,5 @@ package ru.volkdown.coreoctopus
 
 interface FeatureEventListener {
 
-    fun handleEvent(event: BaseFeatureEvent)
+    fun handleEvent(event: BaseFeatureEvent): FeatureEventListener
 }

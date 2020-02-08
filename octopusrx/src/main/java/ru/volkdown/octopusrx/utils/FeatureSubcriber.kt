@@ -7,12 +7,12 @@ import ru.volkdown.octopusrx.RxInnerFeatureSubscriber
 
 fun FeatureSubscriber.asRxSubscriber(): RxFeatureSubscriber{
     val rxFeatureSubscriber = RxFeatureSubscriber()
-    this.setEventListener(rxFeatureSubscriber)
-    return rxFeatureSubscriber
+    val rxFeatureListener = this.setEventListener(rxFeatureSubscriber) as? RxFeatureSubscriber
+    return rxFeatureListener ?: throw RuntimeException("Need use only one type subscriber")
 }
 
 fun InnerFeatureSubscriber.asRxSubscriber(): RxInnerFeatureSubscriber {
     val rxFeatureSubscriber = RxInnerFeatureSubscriber()
-    this.setEventListener(rxFeatureSubscriber)
-    return rxFeatureSubscriber
+    val rxFeatureListener = this.setEventListener(rxFeatureSubscriber) as? RxInnerFeatureSubscriber
+    return rxFeatureListener ?: throw RuntimeException("Need use only one type subscriber")
 }

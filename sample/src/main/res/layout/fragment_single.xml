@@ -3,4 +3,20 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/flContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btnSendEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send_event_to_sample_feature"
+        android:layout_marginTop="@dimen/window_margin"
+        android:layout_marginStart="@dimen/window_margin"
+        android:layout_marginEnd="@dimen/window_margin"
+        android:layout_marginBottom="@dimen/window_margin"/>
+
 </LinearLayout>

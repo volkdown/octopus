@@ -98,11 +98,7 @@ open class BaseFeatureApi : FeatureApi,
     ) {
         checkThreadIsMain()
         val featureId = subscriber.featureId
-        featureInnerSubscribers[FeatureSubscriberIdentifier(
-            featureId,
-            featureOwner.id
-        )] =
-            subscriber
+        featureInnerSubscribers[FeatureSubscriberIdentifier(featureId, featureOwner.id)] = subscriber
         pendingEvents[featureId]?.forEach {
             subscriber.handleEvent(it)
         }
@@ -127,7 +123,7 @@ open class BaseFeatureApi : FeatureApi,
         checkThreadIsMain()
         val featureId = featureKeysByOwnerId[featureOwner.id]
             ?: throw IllegalArgumentException("Owner must be registered or need send event by feature id")
-        sendEvents(featureId)
+        sendEvents(featureId, *events)
     }
 
     override fun newSubscriber(featureOwner: FeatureOwner): FeatureSubscriber {
@@ -184,5 +180,5 @@ open class BaseFeatureApi : FeatureApi,
             ?: throw IllegalArgumentException("Owner must be registered")
     }
 
-    private class FeatureSubscriberIdentifier(val featureId: String, val ownerId: String?)
+    private data class FeatureSubscriberIdentifier(val featureId: String, val ownerId: String?)
 }

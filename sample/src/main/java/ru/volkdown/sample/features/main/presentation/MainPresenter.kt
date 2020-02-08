@@ -5,8 +5,8 @@ import ru.volkdown.coreoctopus.FeatureIdentifier
 import ru.volkdown.sample.base.BasePresenter
 import ru.volkdown.sample.base.BaseView
 import ru.volkdown.sample.features.main.api.MainInnerFeatureApi
-import ru.volkdown.sample.features.main.api.events.ShowMultiImplementationEvent
-import ru.volkdown.sample.features.main.api.events.ShowSingleImplementationEvent
+import ru.volkdown.sample.features.main.api.events.ShowMultiImplementationFromMainEvent
+import ru.volkdown.sample.features.main.api.events.ShowSingleImplementationFromMainEvent
 import javax.inject.Inject
 
 @InjectViewState
@@ -15,11 +15,17 @@ class MainPresenter @Inject constructor(
     private val mainInnerFeatureApi: MainInnerFeatureApi
 ) : BasePresenter<BaseView>(featureIdentifier) {
 
+    private var isPendingEvent: Boolean = false
+
+    fun onChangePendingEventStatus(status: Boolean){
+        isPendingEvent = status
+    }
+
     fun onShowSingleFeatureClicked() {
-        mainInnerFeatureApi.sendInnerEvents(this, ShowSingleImplementationEvent())
+        mainInnerFeatureApi.sendInnerEvents(this, ShowSingleImplementationFromMainEvent(isPendingEvent))
     }
 
     fun onShowMultiFeatureClicked() {
-        mainInnerFeatureApi.sendInnerEvents(this, ShowMultiImplementationEvent())
+        mainInnerFeatureApi.sendInnerEvents(this, ShowMultiImplementationFromMainEvent(isPendingEvent))
     }
 }

@@ -1,6 +1,17 @@
 <resources>
-    <string name="app_name">Octopus</string>
+    <string name="app_name">Sample Feature Api</string>
     <string name="single_feature">Single feature</string>
     <string name="multi_feature">Multi feature</string>
     <string name="i_am_feature">I am feature</string>
+    <string name="send_event_to_sample_feature">Send event to sample feature</string>
+    <string name="event_from_single_owner">Event from single owner</string>
+    <string name="sample_feature_1">Sample feature 1</string>
+    <string name="sample_feature_2">Sample feature 2</string>
+    <string name="send_event_to_sample_feature_1">Send event to sample feature 1</string>
+    <string name="send_event_to_sample_feature_2">Send event to sample feature 2</string>
+    <string name="open_with_pending_event">Open with pending event</string>
+    <string name="this_pending_event">This pending event</string>
+    <string name="event_from_multi_owner">Event from multi owner, featureKey = %1$s</string>
+    <string name="i_am_feature_with_id">I am feature, featureKey = %1$s</string>
+
 </resources>

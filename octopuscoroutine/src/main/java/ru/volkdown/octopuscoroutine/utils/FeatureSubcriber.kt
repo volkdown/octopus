@@ -7,12 +7,12 @@ import ru.volkdown.octopuscoroutine.CoroutineInnerFeatureSubscriber
 
 fun FeatureSubscriber.asCoroutineSubscriber(): CoroutineFeatureSubscriber {
     val coroutineFeatureSubscriber = CoroutineFeatureSubscriber()
-    this.setEventListener(coroutineFeatureSubscriber)
-    return coroutineFeatureSubscriber
+    val coroutineFeatureListener = this.setEventListener(coroutineFeatureSubscriber) as? CoroutineFeatureSubscriber
+    return coroutineFeatureListener ?: throw RuntimeException("Need use only one type subscriber")
 }
 
 fun InnerFeatureSubscriber.asCoroutineSubscriber(): CoroutineInnerFeatureSubscriber {
     val coroutineInnerFeatureSubscriber = CoroutineInnerFeatureSubscriber()
-    this.setEventListener(coroutineInnerFeatureSubscriber)
-    return coroutineInnerFeatureSubscriber
+    val innerCoroutineFeatureListener = this.setEventListener(coroutineInnerFeatureSubscriber) as? CoroutineInnerFeatureSubscriber
+    return innerCoroutineFeatureListener ?: throw RuntimeException("Need use only one type subscriber")
 }

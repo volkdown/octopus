@@ -9,8 +9,9 @@ class RxInnerFeatureSubscriber internal constructor() : FeatureEventListener, Rx
 
     private val eventsSubject: PublishSubject<BaseFeatureEvent> = PublishSubject.create()
 
-    override fun handleEvent(event: BaseFeatureEvent) {
+    override fun handleEvent(event: BaseFeatureEvent): FeatureEventListener {
         eventsSubject.onNext(event)
+        return this
     }
 
     override fun getEvents(): Observable<BaseFeatureEvent> = eventsSubject

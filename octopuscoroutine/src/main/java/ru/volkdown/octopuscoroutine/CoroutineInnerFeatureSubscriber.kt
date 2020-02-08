@@ -12,8 +12,9 @@ class CoroutineInnerFeatureSubscriber internal constructor() : FeatureEventListe
 
     private val eventsBroadcastChannel = BroadcastChannel<BaseFeatureEvent>(1)
 
-    override fun handleEvent(event: BaseFeatureEvent) {
+    override fun handleEvent(event: BaseFeatureEvent): FeatureEventListener {
         eventsBroadcastChannel.sendBlocking(event)
+        return this
     }
 
     override suspend fun getEvents(): Flow<BaseFeatureEvent> {

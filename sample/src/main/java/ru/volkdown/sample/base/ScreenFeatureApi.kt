@@ -7,4 +7,6 @@ import ru.volkdown.coreoctopus.FeatureOwner
 interface ScreenFeatureApi : FeatureApi {
 
     fun getScreen(owner: FeatureOwner): Screen
+
+    fun getScreen(featureId: String): Screen
 }

@@ -5,6 +5,9 @@ import dagger.Module
 import ru.volkdown.sample.features.main.api.MainFeatureApi
 import ru.volkdown.sample.features.main.api.MainFeatureApiImpl
 import ru.volkdown.sample.features.main.api.MainInnerFeatureApi
+import ru.volkdown.sample.features.multi.api.MultiFeatureApi
+import ru.volkdown.sample.features.multi.api.MultiFeatureApiImpl
+import ru.volkdown.sample.features.multi.api.MultiInnerFeatureApi
 import ru.volkdown.sample.features.samplefeature.api.SampleFeatureApi
 import ru.volkdown.sample.features.samplefeature.api.SampleFeatureApiImpl
 import ru.volkdown.sample.features.samplefeature.api.SampleInnerFeatureApi
@@ -32,4 +35,10 @@ interface FeaturesApiModule {
 
     @Binds
     fun bindSingleInnerFeatureApi(impl: SingleFeatureApiImpl): SingleInnerFeatureApi
+
+    @Binds
+    fun bindMultiFeatureApiImpl(impl: MultiFeatureApiImpl): MultiFeatureApi
+
+    @Binds
+    fun bindMultiInnerFeatureApiImpl(impl: MultiFeatureApiImpl): MultiInnerFeatureApi
 }
