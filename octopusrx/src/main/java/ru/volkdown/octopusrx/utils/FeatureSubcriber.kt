@@ -6,9 +6,13 @@ import ru.volkdown.octopusrx.RxFeatureSubscriber
 import ru.volkdown.octopusrx.RxInnerFeatureSubscriber
 
 fun FeatureSubscriber.asRxSubscriber(): RxFeatureSubscriber{
-    return RxFeatureSubscriber(this)
+    val rxFeatureSubscriber = RxFeatureSubscriber()
+    this.setEventListener(rxFeatureSubscriber)
+    return rxFeatureSubscriber
 }
 
 fun InnerFeatureSubscriber.asRxSubscriber(): RxInnerFeatureSubscriber {
-    return RxInnerFeatureSubscriber(this)
+    val rxFeatureSubscriber = RxInnerFeatureSubscriber()
+    this.setEventListener(rxFeatureSubscriber)
+    return rxFeatureSubscriber
 }

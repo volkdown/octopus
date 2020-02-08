@@ -1,8 +1,6 @@
 package ru.volkdown.coreoctopus
 
-interface BaseFeatureSubscriber {
-
-    val featureId: String
+interface FeatureEventListener {
 
     fun handleEvent(event: BaseFeatureEvent)
 }

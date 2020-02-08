@@ -168,10 +168,7 @@ open class BaseFeatureApi : FeatureApi,
         var innerFeatureSubscriber = entry?.value
         if (innerFeatureSubscriber == null) {
             //Inner feature always has id as owner id
-            innerFeatureSubscriber = object : InnerFeatureSubscriber {
-                override val featureId: String = ownerId
-                override fun handleEvent(event: BaseFeatureEvent) {}
-            }
+            innerFeatureSubscriber = InnerFeatureSubscriber(ownerId)
         }
         return innerFeatureSubscriber
     }
@@ -179,10 +176,7 @@ open class BaseFeatureApi : FeatureApi,
     @MainThread
     override fun newSubscriber(featureId: String): FeatureSubscriber {
         checkThreadIsMain()
-        return object : FeatureSubscriber {
-            override val featureId: String = featureId
-            override fun handleEvent(event: BaseFeatureEvent) {}
-        }
+        return FeatureSubscriber(featureId)
     }
 
     protected fun getFeatureIdByOwner(featureOwner: FeatureOwner): String {

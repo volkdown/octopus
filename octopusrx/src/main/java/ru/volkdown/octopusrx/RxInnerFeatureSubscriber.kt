@@ -3,9 +3,9 @@ package ru.volkdown.octopusrx
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import ru.volkdown.coreoctopus.BaseFeatureEvent
-import ru.volkdown.coreoctopus.InnerFeatureSubscriber
+import ru.volkdown.coreoctopus.FeatureEventListener
 
-class RxInnerFeatureSubscriber internal constructor(private val innerFeatureSubscriber: InnerFeatureSubscriber) : InnerFeatureSubscriber by innerFeatureSubscriber, RxSubscriber{
+class RxInnerFeatureSubscriber internal constructor() : FeatureEventListener, RxSubscriber{
 
     private val eventsSubject: PublishSubject<BaseFeatureEvent> = PublishSubject.create()
 

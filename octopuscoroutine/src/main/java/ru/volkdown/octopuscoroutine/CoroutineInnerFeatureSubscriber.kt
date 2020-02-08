@@ -5,9 +5,9 @@ import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import ru.volkdown.coreoctopus.BaseFeatureEvent
-import ru.volkdown.coreoctopus.InnerFeatureSubscriber
+import ru.volkdown.coreoctopus.FeatureEventListener
 
-class CoroutineInnerFeatureSubscriber internal constructor(private val innerFeatureSubscriber: InnerFeatureSubscriber) : InnerFeatureSubscriber by innerFeatureSubscriber,
+class CoroutineInnerFeatureSubscriber internal constructor() : FeatureEventListener,
     CoroutineSubscriber {
 
     private val eventsBroadcastChannel = BroadcastChannel<BaseFeatureEvent>(1)

@@ -6,9 +6,13 @@ import ru.volkdown.octopuscoroutine.CoroutineFeatureSubscriber
 import ru.volkdown.octopuscoroutine.CoroutineInnerFeatureSubscriber
 
 fun FeatureSubscriber.asCoroutineSubscriber(): CoroutineFeatureSubscriber {
-    return CoroutineFeatureSubscriber(this)
+    val coroutineFeatureSubscriber = CoroutineFeatureSubscriber()
+    this.setEventListener(coroutineFeatureSubscriber)
+    return coroutineFeatureSubscriber
 }
 
 fun InnerFeatureSubscriber.asCoroutineSubscriber(): CoroutineInnerFeatureSubscriber {
-    return CoroutineInnerFeatureSubscriber(this)
+    val coroutineInnerFeatureSubscriber = CoroutineInnerFeatureSubscriber()
+    this.setEventListener(coroutineInnerFeatureSubscriber)
+    return coroutineInnerFeatureSubscriber
 }

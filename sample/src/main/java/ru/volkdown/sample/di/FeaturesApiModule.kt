@@ -8,6 +8,9 @@ import ru.volkdown.sample.features.main.api.MainInnerFeatureApi
 import ru.volkdown.sample.features.samplefeature.api.SampleFeatureApi
 import ru.volkdown.sample.features.samplefeature.api.SampleFeatureApiImpl
 import ru.volkdown.sample.features.samplefeature.api.SampleInnerFeatureApi
+import ru.volkdown.sample.features.single.api.SingleFeatureApi
+import ru.volkdown.sample.features.single.api.SingleFeatureApiImpl
+import ru.volkdown.sample.features.single.api.SingleInnerFeatureApi
 
 @Module
 interface FeaturesApiModule {
@@ -23,4 +26,10 @@ interface FeaturesApiModule {
 
     @Binds
     fun bindMainInnerFeatureApi(impl: MainFeatureApiImpl): MainInnerFeatureApi
+
+    @Binds
+    fun bindSingleFeatureApi(impl: SingleFeatureApiImpl): SingleFeatureApi
+
+    @Binds
+    fun bindSingleInnerFeatureApi(impl: SingleFeatureApiImpl): SingleInnerFeatureApi
 }
