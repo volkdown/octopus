@@ -9,12 +9,15 @@ import com.trello.rxlifecycle3.kotlin.bindUntilEvent
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
-import ru.volkdown.coreoctopus.*
+import ru.volkdown.coreoctopus.BaseFeatureEvent
+import ru.volkdown.coreoctopus.FeatureApi
+import ru.volkdown.coreoctopus.FeatureIdentifier
+import ru.volkdown.coreoctopus.FeatureOwner
+import ru.volkdown.coreoctopus.InnerFeatureApi
 import ru.volkdown.octopusrx.utils.asRxSubscriber
 import ru.volkdown.sample.base.PresenterEvent.DESTROY
 import timber.log.Timber
-import java.util.*
-import kotlin.collections.HashSet
+import java.util.UUID
 
 abstract class BasePresenter<VIEW : BaseView> constructor(private val featureIdentifier: FeatureIdentifier?) : MvpPresenter<VIEW>(),
         LifecycleProvider<PresenterEvent>,
@@ -42,9 +45,6 @@ abstract class BasePresenter<VIEW : BaseView> constructor(private val featureIde
         lifecycleSubject.onNext(PresenterEvent.VIEW_SHOWED)
     }
 
-    /**
-     * Уведомление, что View скрыто на экране
-     */
     open fun onViewHidden() {
         lifecycleSubject.onNext(PresenterEvent.VIEW_HIDDEN)
     }
