@@ -3,30 +3,16 @@ package ru.volkdown.coreoctopus
 import androidx.annotation.MainThread
 import ru.volkdown.coreoctopus.utils.Threads.Companion.checkThreadIsMain
 import ru.volkdown.coreoctopus.utils.generateFeatureId
-import java.util.*
-import kotlin.collections.HashMap
+import java.util.LinkedList
+import java.util.Queue
 import kotlin.collections.set
 
-/**
- * Описывает связь между внутренним и внешним feature api
- *
- */
-open class BaseFeatureApi : FeatureApi,
-    InnerFeatureApi {
+open class BaseFeatureApi : FeatureApi, InnerFeatureApi {
 
-    /**
-     * Подписчики, использующие внешнее апи
-     */
-    private val featureSubscribers: HashMap<FeatureSubscriberIdentifier, FeatureSubscriber> =
-        HashMap()
-    /**
-     * Подписчики, использующие внутреннее апи
-     */
-    private val featureInnerSubscribers: HashMap<FeatureSubscriberIdentifier, InnerFeatureSubscriber> =
-        HashMap()
-    /**
-     * Добавляются события в очередь, в случае не зарегистрированного подписчика на внутреннее feature api. Все события события группируются по ключу - feature id. В случае если подписчик внутреннего апи зарегистрирован, то события направляются напрямую к нему [FeatureSubscriber.handleEvent]. Также события будут направлены подписчику внутреннего апи как только он будет зарегистрирован.
-     */
+    private val featureSubscribers: HashMap<FeatureSubscriberIdentifier, FeatureSubscriber> = HashMap()
+
+    private val featureInnerSubscribers: HashMap<FeatureSubscriberIdentifier, InnerFeatureSubscriber> = HashMap()
+
     private val pendingEvents: HashMap<String, Queue<BaseFeatureEvent>> = HashMap()
 
     private val featureKeysByOwnerId: HashMap<String, String> = HashMap()
@@ -59,10 +45,10 @@ open class BaseFeatureApi : FeatureApi,
             throw IllegalArgumentException("Owner must be registered")
         }
         val featureSubscriberIdentifier =
-            FeatureSubscriberIdentifier(
-                subscriber.featureId,
-                ownerId
-            )
+                FeatureSubscriberIdentifier(
+                        subscriber.featureId,
+                        ownerId
+                )
         featureSubscribers[featureSubscriberIdentifier] = subscriber
     }
 
@@ -93,12 +79,13 @@ open class BaseFeatureApi : FeatureApi,
 
     @MainThread
     override fun registerSubscriber(
-        featureOwner: FeatureOwner,
-        subscriber: InnerFeatureSubscriber
+            featureOwner: FeatureOwner,
+            subscriber: InnerFeatureSubscriber
     ) {
         checkThreadIsMain()
         val featureId = subscriber.featureId
-        featureInnerSubscribers[FeatureSubscriberIdentifier(featureId, featureOwner.id)] = subscriber
+        featureInnerSubscribers[FeatureSubscriberIdentifier(featureId, featureOwner.id)] =
+                subscriber
         pendingEvents[featureId]?.forEach {
             subscriber.handleEvent(it)
         }
@@ -122,7 +109,7 @@ open class BaseFeatureApi : FeatureApi,
     override fun sendEvents(featureOwner: FeatureOwner, vararg events: BaseFeatureEvent) {
         checkThreadIsMain()
         val featureId = featureKeysByOwnerId[featureOwner.id]
-            ?: throw IllegalArgumentException("Owner must be registered or need send event by feature id")
+                ?: throw IllegalArgumentException("Owner must be registered or need send event by feature id")
         sendEvents(featureId, *events)
     }
 
@@ -134,7 +121,7 @@ open class BaseFeatureApi : FeatureApi,
         var featureSubscriber = entry?.value
         if (featureSubscriber == null) {
             val featureId = featureKeysByOwnerId[featureOwner.id] ?: throw IllegalArgumentException(
-                "Owner must be registered"
+                    "Owner must be registered"
             )
             featureSubscriber = newSubscriber(featureId)
         }
@@ -177,7 +164,7 @@ open class BaseFeatureApi : FeatureApi,
 
     protected fun getFeatureIdByOwner(featureOwner: FeatureOwner): String {
         return featureKeysByOwnerId[featureOwner.id]
-            ?: throw IllegalArgumentException("Owner must be registered")
+                ?: throw IllegalArgumentException("Owner must be registered")
     }
 
     private data class FeatureSubscriberIdentifier(val featureId: String, val ownerId: String?)
