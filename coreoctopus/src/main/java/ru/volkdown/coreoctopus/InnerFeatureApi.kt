@@ -8,6 +8,9 @@ interface InnerFeatureApi {
     fun sendInnerEvents(featureOwner: FeatureOwner, vararg events: BaseFeatureEvent)
 
     @MainThread
+    fun sendInnerEventsToOwners(vararg events: BaseFeatureEvent)
+
+    @MainThread
     fun registerSubscriber(featureOwner: FeatureOwner, subscriber: InnerFeatureSubscriber)
 
     @MainThread
