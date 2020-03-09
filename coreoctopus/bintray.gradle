@@ -4,7 +4,7 @@ publish {
     userOrg = 'volkdown'
     groupId = 'com.github.volkdown'
     artifactId = 'coreoctopus'
-    publishVersion = coreOctopusVersion
+    publishVersion = octopusVersion
     desc = 'Core feature api'
     repoName = 'octopusmaven'
     licences = ['MIT']
