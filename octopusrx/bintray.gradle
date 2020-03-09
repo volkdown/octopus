@@ -1,0 +1,13 @@
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+    userOrg = 'volkdown'
+    groupId = 'com.github.volkdown'
+    artifactId = 'octopusrx'
+    publishVersion = octopusRxVersion
+    desc = 'RxJava2 support for octopus library'
+    repoName = 'octopusmaven'
+    licences = ['MIT']
+    website = 'https://github.com/volkdown/octopus'
+    dryRun = false
+}

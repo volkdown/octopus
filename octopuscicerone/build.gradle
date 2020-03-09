@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply from: "$rootDir/dependencies.gradle"
 apply from: "$rootDir/config.gradle"
+apply from: "bintray.gradle"
 
 dependencies{
     implementation project(':coreoctopus')
