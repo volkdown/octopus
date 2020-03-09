@@ -4,7 +4,7 @@ apply from: "$rootDir/config.gradle"
 apply from: "bintray.gradle"
 
 dependencies{
-    implementation project(':coreoctopus')
+    implementation "com.github.volkdown:coreoctopus:$octopusVersion"
 
     implementation deps.android.appcompat
     deps.groups.navigation dependencies
