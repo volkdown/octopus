@@ -1,4 +1,6 @@
 # Octopus
+ [ ![Download](https://api.bintray.com/packages/volkdown/octopusmaven/coreoctopus/images/download.svg) ](https://bintray.com/volkdown/octopusmaven/coreoctopus/_latestVersion)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Why "Octopus"?
 
