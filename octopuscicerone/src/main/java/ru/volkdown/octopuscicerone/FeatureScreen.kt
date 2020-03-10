@@ -12,7 +12,7 @@ abstract class FeatureScreen(private val featureId: String, private val screenPa
 
     open fun getFeatureFragment(): Fragment? = null
 
-    open fun getFeatureIntent(): Intent? = null
+    open fun getFeatureIntent(context: Context?): Intent? = null
 
     final override fun getFragment(): Fragment? {
         return getFeatureFragment()?.apply {
@@ -24,7 +24,7 @@ abstract class FeatureScreen(private val featureId: String, private val screenPa
     }
 
     final override fun getActivityIntent(context: Context?): Intent? {
-        return getFeatureIntent()?.apply {
+        return getFeatureIntent(context)?.apply {
             putExtra(FEATURE_ID_KEY, featureId)
             putExtra(FEATURE_SCREEN_PATH, screenPath)
         }
