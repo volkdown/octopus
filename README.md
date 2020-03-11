@@ -2,6 +2,8 @@
  [ ![Download](https://api.bintray.com/packages/volkdown/octopusmaven/coreoctopus/images/download.svg) ](https://bintray.com/volkdown/octopusmaven/coreoctopus/_latestVersion)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+Octopus is a lightweight library on Android that helps you organize communication between different features (modules).
+
 ## Why "Octopus"?
 
 We think this is the most suitable name since a feature API connects the features between each other just like an octopus tentacles.
@@ -35,11 +37,108 @@ Each feature gets a unique featureId upon creation, so that the same feature cou
 
 2) Create a feature API with all the interfaces. The feature API object has to be a singleton.
 
+```kotlin
+
+object SampleFeatureApiImpl: BaseFeatureApi(), SampleFeatureApi, SampleInnerFeatureApi {
+
+    fun getScreen(featureId: String): Screen {
+        return object: FeatureScreen(featureId){
+
+            override fun getFeatureFragment(): Fragment? {
+                return SampleFeatureFragment.newInstance()
+            }
+        }
+    }
+}
+
+interface SampleFeatureApi : FeatureApi
+
+interface SampleInnerFeatureApi : InnerFeatureApi
+
+object AppImpl : Application() {
+
+    fun getSampleFeatureApi(): SampleFeatureApi = SampleFeatureApiImpl
+
+    fun getSampleInnerFeatureApi(): InnerFeatureApi = SampleFeatureApiImpl
+}
+
+```
+
 3) Choose a feature owner. A Presenter or a View Model (depending on your architecture) are the best for this role. The feature owner has to implement the FeatureOwner interface.
 
 4) Register the feature owner in the feature API using the registerOwner method.
 
 5) After you're done working with the feature you must remove its owner (unregisterOwner) and all the subsribers (unregisterSubscriber)
+
+```kotlin
+
+//MainPresenter it this owner for sample feature
+
+class MainPresenter constructor(featureIdentifier: FeatureIdentifier,
+                                private val sampleFeatureApi: SampleFeatureApi): BasePresenter<MainView>(), FeatureOwner {
+
+    private val compositeDisposable = CompositeDisposable()
+
+    private val sampleFeatureSubscriber = sampleFeatureApi.newSubscriber(this)
+
+    fun onCreate(){
+        sampleFeatureApi.registerOwner(this)
+        val disposable = sampleFeatureSubscriber
+            .asRxSubscriber()
+            .getEvents()
+            .subscribe({
+                //Handle events from sample feature
+            }, {})
+        compositeDisposable.add(disposable)
+    }
+
+    fun onDestroy(){
+        sampleFeatureApi.unregisterOwner(this)
+        sampleFeatureApi.unregisterSubscriber(sampleFeatureSubscriber)
+        compositeDisposable.clear()
+    }
+    
+    fun onMainActionButtonClicked(){
+        //Send event to sample feature
+        sampleFeatureApi.sendEvents(this, UpdateContentEvent())
+    }
+    
+    override val id: String = featureIdentifier.featureId
+}
+
+
+class SampleFeaturePresenter constructor(featureIdentifier: FeatureIdentifier,
+                                private val sampleInnerFeatureApi: SampleInnerFeatureApi
+): BasePresenter<MainView>(), FeatureOwner {
+
+    private val compositeDisposable = CompositeDisposable()
+
+    private val sampleInnerFeatureApiSubscriber = sampleInnerFeatureApi.newInnerSubscriber(this)
+
+    fun onCreate(){
+        val disposable = sampleInnerFeatureApiSubscriber
+            .asRxSubscriber()
+            .getEvents()
+            .subscribe({
+                //Handle events from feature owner
+            }, {})
+        compositeDisposable.add(disposable)
+    }
+
+    fun onDestroy(){
+        sampleInnerFeatureApi.unregisterSubscriber(sampleInnerFeatureApiSubscriber)
+        compositeDisposable.clear()
+    }
+
+    fun onSampleFeatureActionButtonClicked(){
+        //send event to feature owner (MainPresenter)
+        sampleInnerFeatureApi.sendInnerEvents(this, SampleFeatureEvent())
+    }
+
+    override val id: String = featureIdentifier.featureId
+}
+
+```
 
 You can see how it all works in detail in the sample app.
 
