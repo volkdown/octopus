@@ -16,7 +16,14 @@ buildscript {
 }
 
 ext {
-    octopusVersion = '0.0.6'
+    octopusCorePublishVersion = '0.0.8'
+    octopusCoreReleasedVersion = '0.0.8'
+
+    octopusRxPublishVersion = '0.0.8'
+    octopusRxReleasedVersion = '0.0.8'
+
+    octopusCiceronePublishVersion = '0.0.8'
+    octopusCiceroneReleasedVersion = '0.0.8'
 }
 
 allprojects {

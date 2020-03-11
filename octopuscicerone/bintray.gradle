@@ -4,7 +4,7 @@ publish {
     userOrg = 'volkdown'
     groupId = 'com.github.volkdown'
     artifactId = 'octopuscicerone'
-    publishVersion = octopusVersion
+    publishVersion = octopusCiceronePublishVersion
     desc = 'Cicerone navigation support for octopus library'
     repoName = 'octopusmaven'
     licences = ['MIT']

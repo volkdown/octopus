@@ -3,7 +3,7 @@ apply from: "$rootDir/dependencies.gradle"
 apply from: "$rootDir/config.gradle"
 
 dependencies{
-    implementation "com.github.volkdown:coreoctopus:$octopusVersion"
+    implementation "com.github.volkdown:coreoctopus:$octopusCoreReleasedVersion"
 
     deps.groups.kotlinCoroutines dependencies
 }

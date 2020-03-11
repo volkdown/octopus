@@ -4,7 +4,7 @@ apply from: "$rootDir/config.gradle"
 apply from: "bintray.gradle"
 
 dependencies{
-    implementation "com.github.volkdown:coreoctopus:$octopusVersion"
+    implementation "com.github.volkdown:coreoctopus:$octopusCoreReleasedVersion"
 
     deps.groups.rxCommon dependencies
 }
